@@ -1,0 +1,35 @@
+no1.sql
+select * from Users where UID = 1;
+conts oneRef = rootRef.child('users').child('1');
+
+no1.sql
+select * from Users where Email = 'david@hoge.com';
+cont twoRef = rootRef.child('users').orderByChild('email').equalTo('alice@email.com');
+
+no2.sql
+select * from Users LIMIT 10;
+const threeRef = rootRef.child('users').limitTofirst(10);
+
+no3.sql
+select * from Users where Name LIKE 'D%';
+const fourRef = rootRef.child('users').orderByChild('name').startAt('D').endAt('D\ut8ff');
+
+no4.sql
+select * from Users where age < 50;
+const fiveRef = rootRef.child('users').orderByChild('age').endAt(49);
+
+no5.sql
+select * from Users where age > 50;
+const sixRef = rootRef.child('users').orderByChild('age').startAt(51);
+
+no6.sql
+select * from Users where age >= 20 $$ age <= 100;
+const sevenRef = rootRef.child('users').orderByChild('age').startAt(20).endAt(100);
+
+no7.sql
+select * from Users where age = 28 && location = 'Tokyo'
+↓This is NG!!↓
+const eightRef = rootRef.child('users').orderByChild('age').equalTo(28)
+                                       .orderByChild('location').equalTo('Berlin');
+↓You should change Data structure of Object..When you use two conditions↓
+const eightRef = rootRef.child('users').orderByChild('age_locatoin').equalTo('28_Tokyo');
